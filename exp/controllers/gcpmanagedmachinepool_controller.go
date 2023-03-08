@@ -239,7 +239,7 @@ func (r *GCPManagedMachinePoolReconciler) Reconcile(ctx context.Context, req ctr
 	}
 
 	// Get the machine pool
-	machinePool, err := getOwnerMachinePool(ctx, r.Client, gcpManagedMachinePool.ObjectMeta)
+	machinePool, err := GetOwnerMachinePool(ctx, r.Client, gcpManagedMachinePool.ObjectMeta)
 	if err != nil {
 		log.Error(err, "Failed to retrieve owner MachinePool from the API Server")
 		return ctrl.Result{}, err

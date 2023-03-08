@@ -16,11 +16,11 @@ require (
 	github.com/onsi/gomega v1.27.10
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.8.3
 	golang.org/x/crypto v0.12.0
 	golang.org/x/mod v0.12.0
 	golang.org/x/net v0.14.0
-	google.golang.org/api v0.138.0
+	google.golang.org/api v0.128.0
 	google.golang.org/grpc v1.57.0
 	k8s.io/api v0.27.2
 	k8s.io/apimachinery v0.27.2
@@ -28,12 +28,15 @@ require (
 	k8s.io/component-base v0.27.2
 	k8s.io/klog/v2 v2.90.1
 	k8s.io/utils v0.0.0-20230209194617-a36077c30491
-	sigs.k8s.io/cluster-api v1.5.0
-	sigs.k8s.io/cluster-api/test v1.5.0
+	sigs.k8s.io/cluster-api v1.3.8
+	sigs.k8s.io/cluster-api/test v1.3.8
 	sigs.k8s.io/controller-runtime v0.15.0
 )
 
-require golang.org/x/sync v0.3.0 // indirect
+require (
+	golang.org/x/sync v0.3.0 // indirect
+	gotest.tools/v3 v3.5.0 // indirect
+)
 
 require (
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
