@@ -274,25 +274,42 @@ func (m *MachineScope) InstanceAdditionalDiskSpec() []*compute.AttachedDisk {
 }
 
 // InstanceNetworkInterfaceSpec returns compute network interface spec.
-func (m *MachineScope) InstanceNetworkInterfaceSpec() *compute.NetworkInterface {
-	networkInterface := &compute.NetworkInterface{
-		Network: path.Join("projects", m.ClusterGetter.Project(), "global", "networks", m.ClusterGetter.NetworkName()),
-	}
+func (m *MachineScope) InstanceNetworkInterfaceSpec() []*compute.NetworkInterface {
+	var networkInterfaces []*compute.NetworkInterface
 
-	if m.GCPMachine.Spec.PublicIP != nil && *m.GCPMachine.Spec.PublicIP {
-		networkInterface.AccessConfigs = []*compute.AccessConfig{
-			{
-				Type: "ONE_TO_ONE_NAT",
-				Name: "External NAT",
-			},
+	// Add additional network interfaces if specified. This is useful for example if you want to use a private network for control plane nodes and a public network for worker nodes.
+	if m.GCPMachine.Spec.NetworkInterfaces != nil {
+		networkInterface := &compute.NetworkInterface{}
+		for _, additionalNetworkInterface := range m.GCPMachine.Spec.NetworkInterfaces {
+			networkInterface.Network = path.Join("projects", m.ClusterGetter.Project(), "global", "networks", additionalNetworkInterface.Network)
+			if additionalNetworkInterface.Subnetwork != nil {
+				networkInterface.Subnetwork = path.Join("regions", m.ClusterGetter.Region(), "subnetworks", *additionalNetworkInterface.Subnetwork)
+			}
+			if additionalNetworkInterface.NetworkIP != nil {
+				networkInterface.NetworkIP = *additionalNetworkInterface.NetworkIP
+			}
+			networkInterfaces = append(networkInterfaces, networkInterface)
 		}
+	} else {
+		// Add the default network interface.
+		networkInterface := &compute.NetworkInterface{
+			Network: path.Join("projects", m.ClusterGetter.Project(), "global", "networks", m.ClusterGetter.NetworkName()),
+		}
+		if m.GCPMachine.Spec.PublicIP != nil && *m.GCPMachine.Spec.PublicIP {
+			networkInterface.AccessConfigs = []*compute.AccessConfig{
+				{
+					Type: "ONE_TO_ONE_NAT",
+					Name: "External NAT",
+				},
+			}
+		}
+		if m.GCPMachine.Spec.Subnet != nil {
+			networkInterface.Subnetwork = path.Join("regions", m.ClusterGetter.Region(), "subnetworks", *m.GCPMachine.Spec.Subnet)
+		}
+		networkInterfaces = append(networkInterfaces, networkInterface)
 	}
 
-	if m.GCPMachine.Spec.Subnet != nil {
-		networkInterface.Subnetwork = path.Join("regions", m.ClusterGetter.Region(), "subnetworks", *m.GCPMachine.Spec.Subnet)
-	}
-
-	return networkInterface
+	return networkInterfaces
 }
 
 // InstanceServiceAccountsSpec returns service-account spec.
@@ -393,7 +410,7 @@ func (m *MachineScope) InstanceSpec(log logr.Logger) *compute.Instance {
 	instance.Disks = append(instance.Disks, m.InstanceAdditionalDiskSpec()...)
 	instance.Metadata = m.InstanceAdditionalMetadataSpec()
 	instance.ServiceAccounts = append(instance.ServiceAccounts, m.InstanceServiceAccountsSpec())
-	instance.NetworkInterfaces = append(instance.NetworkInterfaces, m.InstanceNetworkInterfaceSpec())
+	instance.NetworkInterfaces = append(instance.NetworkInterfaces, m.InstanceNetworkInterfaceSpec()...)
 	return instance
 }
 

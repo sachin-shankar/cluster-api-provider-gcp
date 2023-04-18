@@ -146,6 +146,23 @@ const (
 	HostMaintenancePolicyTerminate HostMaintenancePolicy = "Terminate"
 )
 
+// NetworkInterfaceSpec defines the desired state of NetworkInterface.
+type NetworkInterfaceSpec struct {
+	// Network is the name of the network to attach this interface to.
+	// example: my-network
+	Network string `json:"network"`
+
+	// Subnetwork is the name of the subnetwork to attach this interface to.
+	// example: my-subnet
+	// +optional
+	Subnetwork *string `json:"subnetwork,omitempty"`
+
+	// NetworkIP is the IP address to assign to the instance for this network
+	// interface. If unspecified, an ephemeral IP will be assigned.
+	// +optional
+	NetworkIP *string `json:"networkIP,omitempty"`
+}
+
 // GCPMachineSpec defines the desired state of GCPMachine.
 type GCPMachineSpec struct {
 	// InstanceType is the type of instance to create. Example: n1.standard-2
@@ -246,6 +263,8 @@ type GCPMachineSpec struct {
 	// +kubebuilder:validation:Enum=Enabled;Disabled
 	// +optional
 	ConfidentialCompute *ConfidentialComputePolicy `json:"confidentialCompute,omitempty"`
+
+	NetworkInterfaces []NetworkInterfaceSpec `json:"networkInterfaces,omitempty"`
 }
 
 // MetadataItem defines a single piece of metadata associated with an instance.

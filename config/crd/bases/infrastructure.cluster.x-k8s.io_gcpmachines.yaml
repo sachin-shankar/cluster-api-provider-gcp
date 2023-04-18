@@ -580,6 +580,27 @@ spec:
                 - Enabled
                 - Disabled
                 type: string
+              networkInterfaces:
+                items:
+                  description: NetworkInterfaceSpec defines the desired state of NetworkInterface.
+                  properties:
+                    network:
+                      description: 'Network is the name of the network to attach this
+                        interface to. example: my-network'
+                      type: string
+                    networkIP:
+                      description: NetworkIP is the IP address to assign to the instance
+                        for this network interface. If unspecified, an ephemeral IP
+                        will be assigned.
+                      type: string
+                    subnetwork:
+                      description: 'Subnetwork is the name of the subnetwork to attach
+                        this interface to. example: my-subnet'
+                      type: string
+                  required:
+                  - network
+                  type: object
+                type: array
               onHostMaintenance:
                 description: OnHostMaintenance determines the behavior when a maintenance
                   event occurs that might cause the instance to reboot. If omitted,

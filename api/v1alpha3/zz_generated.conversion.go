@@ -576,6 +576,7 @@ func autoConvert_v1beta1_GCPMachineSpec_To_v1alpha3_GCPMachineSpec(in *v1beta1.G
 	// WARNING: in.ShieldedInstanceConfig requires manual conversion: does not exist in peer-type
 	// WARNING: in.OnHostMaintenance requires manual conversion: does not exist in peer-type
 	// WARNING: in.ConfidentialCompute requires manual conversion: does not exist in peer-type
+	// WARNING: in.NetworkInterfaces requires manual conversion: does not exist in peer-type
 	return nil
 }
 
