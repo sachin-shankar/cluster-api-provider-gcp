@@ -144,6 +144,7 @@ func (m *MachinePoolScope) Close(ctx context.Context) error {
 
 // InstanceGroupTemplateBuilder returns a GCP instance template.
 func (m *MachinePoolScope) InstanceGroupTemplateBuilder(bootstrapData string) *compute.InstanceTemplate {
+
 	instanceTemplate := &compute.InstanceTemplate{
 		Name: m.GCPMachinePool.Name,
 		Properties: &compute.InstanceProperties{
@@ -170,6 +171,11 @@ func (m *MachinePoolScope) InstanceGroupTemplateBuilder(bootstrapData string) *c
 				},
 			},
 		},
+	}
+
+	// Set the minimum CPU platform to Intel Ice Lake if the instance type is n2.
+	if strings.Contains(m.GCPMachinePool.Spec.InstanceType, "n2") {
+		instanceTemplate.Properties.MinCpuPlatform = "Intel Ice Lake"
 	}
 
 	instanceTemplate.Properties.Disks = append(instanceTemplate.Properties.Disks, m.InstanceImageSpec())

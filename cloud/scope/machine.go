@@ -389,6 +389,12 @@ func (m *MachineScope) InstanceSpec(log logr.Logger) *compute.Instance {
 		}
 	}
 
+	// Set the minimum CPU platform based on the instance type.
+	// https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform
+	if strings.Contains(m.GCPMachine.Spec.InstanceType, "n2") {
+		instance.MinCpuPlatform = "Intel Ice Lake"
+	}
+
 	instance.Disks = append(instance.Disks, m.InstanceImageSpec())
 	instance.Disks = append(instance.Disks, m.InstanceAdditionalDiskSpec()...)
 	instance.Metadata = m.InstanceAdditionalMetadataSpec()
