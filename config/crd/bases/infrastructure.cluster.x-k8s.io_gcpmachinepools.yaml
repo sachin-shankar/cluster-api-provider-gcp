@@ -3,7 +3,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.13.0
+    controller-gen.kubebuilder.io/version: v0.14.0
   name: gcpmachinepools.infrastructure.cluster.x-k8s.io
 spec:
   group: infrastructure.cluster.x-k8s.io
@@ -30,14 +30,19 @@ spec:
           represents a GCP Machine Pool.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
             type: string
           metadata:
             type: object
@@ -51,19 +56,22 @@ spec:
                   description: AttachedDiskSpec degined GCP machine disk.
                   properties:
                     deviceType:
-                      description: 'DeviceType is a device type of the attached disk.
-                        Supported types of non-root attached volumes: 1. "pd-standard"
-                        - Standard (HDD) persistent disk 2. "pd-ssd" - SSD persistent
-                        disk 3. "local-ssd" - Local SSD disk (https://cloud.google.com/compute/docs/disks/local-ssd).
-                        Default is "pd-standard".'
+                      description: |-
+                        DeviceType is a device type of the attached disk.
+                        Supported types of non-root attached volumes:
+                        1. "pd-standard" - Standard (HDD) persistent disk
+                        2. "pd-ssd" - SSD persistent disk
+                        3. "local-ssd" - Local SSD disk (https://cloud.google.com/compute/docs/disks/local-ssd).
+                        Default is "pd-standard".
                       enum:
                       - pd-standard
                       - pd-ssd
                       - local-ssd
                       type: string
                     size:
-                      description: Size is the size of the disk in GBs. Defaults to
-                        30GB. For "local-ssd" size is always 375GB.
+                      description: |-
+                        Size is the size of the disk in GBs.
+                        Defaults to 30GB. For "local-ssd" size is always 375GB.
                       format: int64
                       type: integer
                   type: object
@@ -71,16 +79,15 @@ spec:
               additionalLabels:
                 additionalProperties:
                   type: string
-                description: AdditionalLabels is an optional set of tags to add to
-                  an instance, in addition to the ones added by default by the GCP
-                  provider. If both the GCPCluster and the GCPMachinePool specify
-                  the same tag name with different values, the GCPMachinePool's value
-                  takes precedence.
+                description: |-
+                  AdditionalLabels is an optional set of tags to add to an instance, in addition to the ones added by default by the
+                  GCP provider. If both the GCPCluster and the GCPMachinePool specify the same tag name with different values, the
+                  GCPMachinePool's value takes precedence.
                 type: object
               additionalMetadata:
-                description: AdditionalMetadata is an optional set of metadata to
-                  add to an instance, in addition to the ones added by default by
-                  the GCP provider.
+                description: |-
+                  AdditionalMetadata is an optional set of metadata to add to an instance, in addition to the ones added by default by the
+                  GCP provider.
                 items:
                   description: MetadataItem is a key/value pair to add to the instance's
                     metadata.
@@ -99,15 +106,17 @@ spec:
                 - key
                 x-kubernetes-list-type: map
               additionalNetworkTags:
-                description: AdditionalNetworkTags is a list of network tags that
-                  should be applied to the instance. These tags are set in addition
-                  to any network tags defined at the cluster level or in the actuator.
+                description: |-
+                  AdditionalNetworkTags is a list of network tags that should be applied to the
+                  instance. These tags are set in addition to any network tags defined
+                  at the cluster level or in the actuator.
                 items:
                   type: string
                 type: array
               image:
-                description: Image is the full reference to a valid image to be used
-                  for this machine. Takes precedence over ImageFamily.
+                description: |-
+                  Image is the full reference to a valid image to be used for this machine.
+                  Takes precedence over ImageFamily.
                 type: string
               imageFamily:
                 description: ImageFamily is the family of the image to be used for
@@ -125,10 +134,10 @@ spec:
                   machine pool.
                 type: string
               nodeDrainTimeout:
-                description: 'NodeDrainTimeout is the total amount of time that the
-                  controller will spend on draining a node. The default value is 0,
-                  meaning that the node can be drained without any time limitations.
-                  NOTE: NodeDrainTimeout is different from `kubectl drain --timeout`'
+                description: |-
+                  NodeDrainTimeout is the total amount of time that the controller will spend on draining a node.
+                  The default value is 0, meaning that the node can be drained without any time limitations.
+                  NOTE: NodeDrainTimeout is different from `kubectl drain --timeout`
                 type: string
               providerID:
                 description: ProviderID is the identification ID of the Managed Instance
@@ -141,35 +150,40 @@ spec:
                   type: string
                 type: array
               publicIP:
-                description: PublicIP specifies whether the instance should get a
-                  public IP. Set this to true if you don't have a NAT instances or
-                  Cloud Nat setup.
+                description: |-
+                  PublicIP specifies whether the instance should get a public IP.
+                  Set this to true if you don't have a NAT instances or Cloud Nat setup.
                 type: boolean
               rootDeviceSize:
-                description: RootDeviceSize is the size of the root volume in GB.
+                description: |-
+                  RootDeviceSize is the size of the root volume in GB.
                   Defaults to 30.
                 format: int64
                 type: integer
               rootDeviceType:
-                description: 'RootDeviceType is the type of the root volume. Supported
-                  types of root volumes: 1. "pd-standard" - Standard (HDD) persistent
-                  disk 2. "pd-ssd" - SSD persistent disk Default is "pd-standard".'
+                description: |-
+                  RootDeviceType is the type of the root volume.
+                  Supported types of root volumes:
+                  1. "pd-standard" - Standard (HDD) persistent disk
+                  2. "pd-ssd" - SSD persistent disk
+                  Default is "pd-standard".
                 enum:
                 - pd-standard
                 - pd-ssd
                 - pd-balanced
                 type: string
               serviceAccounts:
-                description: 'ServiceAccount specifies the service account email and
-                  which scopes to assign to the machine. Defaults to: email: "default",
-                  scope: []{compute.CloudPlatformScope}'
+                description: |-
+                  ServiceAccount specifies the service account email and which scopes to assign to the machine.
+                  Defaults to: email: "default", scope: []{compute.CloudPlatformScope}
                 properties:
                   email:
                     description: 'Email: Email address of the service account.'
                     type: string
                   scopes:
-                    description: 'Scopes: The list of scopes to be made available
-                      for this service account.'
+                    description: |-
+                      Scopes: The list of scopes to be made available for this service
+                      account.
                     items:
                       type: string
                     type: array
@@ -185,15 +199,16 @@ spec:
                   with new ones.
                 properties:
                   rollingUpdate:
-                    description: Rolling update config params. Present only if MachineDeploymentStrategyType
-                      = RollingUpdate.
+                    description: |-
+                      Rolling update config params. Present only if
+                      MachineDeploymentStrategyType = RollingUpdate.
                     properties:
                       deletePolicy:
                         default: Oldest
-                        description: DeletePolicy defines the policy used by the MachineDeployment
-                          to identify nodes to delete when downscaling. Valid values
-                          are "Random, "Newest", "Oldest" When no value is supplied,
-                          the default is Oldest
+                        description: |-
+                          DeletePolicy defines the policy used by the MachineDeployment to identify nodes to delete when downscaling.
+                          Valid values are "Random, "Newest", "Oldest"
+                          When no value is supplied, the default is Oldest
                         enum:
                         - Random
                         - Newest
@@ -204,36 +219,39 @@ spec:
                         - type: integer
                         - type: string
                         default: 1
-                        description: 'The maximum number of machines that can be scheduled
-                          above the desired number of machines. Value can be an absolute
-                          number (ex: 5) or a percentage of desired machines (ex:
-                          10%). This can not be 0 if MaxUnavailable is 0. Absolute
-                          number is calculated from percentage by rounding up. Defaults
-                          to 1. Example: when this is set to 30%, the new MachineSet
-                          can be scaled up immediately when the rolling update starts,
-                          such that the total number of old and new machines do not
-                          exceed 130% of desired machines. Once old machines have
-                          been killed, new MachineSet can be scaled up further, ensuring
-                          that total number of machines running at any time during
-                          the update is at most 130% of desired machines.'
+                        description: |-
+                          The maximum number of machines that can be scheduled above the
+                          desired number of machines.
+                          Value can be an absolute number (ex: 5) or a percentage of
+                          desired machines (ex: 10%).
+                          This can not be 0 if MaxUnavailable is 0.
+                          Absolute number is calculated from percentage by rounding up.
+                          Defaults to 1.
+                          Example: when this is set to 30%, the new MachineSet can be scaled
+                          up immediately when the rolling update starts, such that the total
+                          number of old and new machines do not exceed 130% of desired
+                          machines. Once old machines have been killed, new MachineSet can
+                          be scaled up further, ensuring that total number of machines running
+                          at any time during the update is at most 130% of desired machines.
                         x-kubernetes-int-or-string: true
                       maxUnavailable:
                         anyOf:
                         - type: integer
                         - type: string
                         default: 0
-                        description: 'The maximum number of machines that can be unavailable
-                          during the update. Value can be an absolute number (ex:
-                          5) or a percentage of desired machines (ex: 10%). Absolute
-                          number is calculated from percentage by rounding down. This
-                          can not be 0 if MaxSurge is 0. Defaults to 0. Example: when
-                          this is set to 30%, the old MachineSet can be scaled down
-                          to 70% of desired machines immediately when the rolling
-                          update starts. Once new machines are ready, old MachineSet
-                          can be scaled down further, followed by scaling up the new
-                          MachineSet, ensuring that the total number of machines available
-                          at all times during the update is at least 70% of desired
-                          machines.'
+                        description: |-
+                          The maximum number of machines that can be unavailable during the update.
+                          Value can be an absolute number (ex: 5) or a percentage of desired
+                          machines (ex: 10%).
+                          Absolute number is calculated from percentage by rounding down.
+                          This can not be 0 if MaxSurge is 0.
+                          Defaults to 0.
+                          Example: when this is set to 30%, the old MachineSet can be scaled
+                          down to 70% of desired machines immediately when the rolling update
+                          starts. Once new machines are ready, old MachineSet can be scaled
+                          down further, followed by scaling up the new MachineSet, ensuring
+                          that the total number of machines available at all times
+                          during the update is at least 70% of desired machines.
                         x-kubernetes-int-or-string: true
                     type: object
                   type:
@@ -245,9 +263,9 @@ spec:
                     type: string
                 type: object
               subnet:
-                description: Subnet is a reference to the subnetwork to use for this
-                  instance. If not specified, the first subnetwork retrieved from
-                  the Cluster Region and Network is picked.
+                description: |-
+                  Subnet is a reference to the subnetwork to use for this instance. If not specified,
+                  the first subnetwork retrieved from the Cluster Region and Network is picked.
                 type: string
               zone:
                 description: Zone is the GCP zone location ex us-central1-a
@@ -270,37 +288,37 @@ spec:
                     operational state.
                   properties:
                     lastTransitionTime:
-                      description: Last time the condition transitioned from one status
-                        to another. This should be when the underlying condition changed.
-                        If that is not known, then using the time when the API field
-                        changed is acceptable.
+                      description: |-
+                        Last time the condition transitioned from one status to another.
+                        This should be when the underlying condition changed. If that is not known, then using the time when
+                        the API field changed is acceptable.
                       format: date-time
                       type: string
                     message:
-                      description: A human readable message indicating details about
-                        the transition. This field may be empty.
+                      description: |-
+                        A human readable message indicating details about the transition.
+                        This field may be empty.
                       type: string
                     reason:
-                      description: The reason for the condition's last transition
-                        in CamelCase. The specific API may choose whether or not this
-                        field is considered a guaranteed API. This field may not be
-                        empty.
+                      description: |-
+                        The reason for the condition's last transition in CamelCase.
+                        The specific API may choose whether or not this field is considered a guaranteed API.
+                        This field may not be empty.
                       type: string
                     severity:
-                      description: Severity provides an explicit classification of
-                        Reason code, so the users or machines can immediately understand
-                        the current situation and act accordingly. The Severity field
-                        MUST be set only when Status=False.
+                      description: |-
+                        Severity provides an explicit classification of Reason code, so the users or machines can immediately
+                        understand the current situation and act accordingly.
+                        The Severity field MUST be set only when Status=False.
                       type: string
                     status:
                       description: Status of the condition, one of True, False, Unknown.
                       type: string
                     type:
-                      description: Type of condition in CamelCase or in foo.example.com/CamelCase.
-                        Many .condition.type values are consistent across resources
-                        like Available, but because arbitrary conditions can be useful
-                        (see .node.status.conditions), the ability to deconflict is
-                        important.
+                      description: |-
+                        Type of condition in CamelCase or in foo.example.com/CamelCase.
+                        Many .condition.type values are consistent across resources like Available, but because arbitrary conditions
+                        can be useful (see .node.status.conditions), the ability to deconflict is important.
                       type: string
                   required:
                   - lastTransitionTime
@@ -309,36 +327,46 @@ spec:
                   type: object
                 type: array
               failureMessage:
-                description: "FailureMessage will be set in the event that there is
-                  a terminal problem reconciling the MachinePool and will contain
-                  a more verbose string suitable for logging and human consumption.
-                  \n This field should not be set for transitive errors that a controller
-                  faces that are expected to be fixed automatically over time (like
-                  service outages), but instead indicate that something is fundamentally
-                  wrong with the MachinePool's spec or the configuration of the controller,
-                  and that manual intervention is required. Examples of terminal errors
-                  would be invalid combinations of settings in the spec, values that
-                  are unsupported by the controller, or the responsible controller
-                  itself being critically misconfigured. \n Any transient errors that
-                  occur during the reconciliation of MachinePools can be added as
-                  events to the MachinePool object and/or logged in the controller's
-                  output."
+                description: |-
+                  FailureMessage will be set in the event that there is a terminal problem
+                  reconciling the MachinePool and will contain a more verbose string suitable
+                  for logging and human consumption.
+
+
+                  This field should not be set for transitive errors that a controller
+                  faces that are expected to be fixed automatically over
+                  time (like service outages), but instead indicate that something is
+                  fundamentally wrong with the MachinePool's spec or the configuration of
+                  the controller, and that manual intervention is required. Examples
+                  of terminal errors would be invalid combinations of settings in the
+                  spec, values that are unsupported by the controller, or the
+                  responsible controller itself being critically misconfigured.
+
+
+                  Any transient errors that occur during the reconciliation of MachinePools
+                  can be added as events to the MachinePool object and/or logged in the
+                  controller's output.
                 type: string
               failureReason:
-                description: "FailureReason will be set in the event that there is
-                  a terminal problem reconciling the MachinePool and will contain
-                  a succinct value suitable for machine interpretation. \n This field
-                  should not be set for transitive errors that a controller faces
-                  that are expected to be fixed automatically over time (like service
-                  outages), but instead indicate that something is fundamentally wrong
-                  with the MachinePool's spec or the configuration of the controller,
-                  and that manual intervention is required. Examples of terminal errors
-                  would be invalid combinations of settings in the spec, values that
-                  are unsupported by the controller, or the responsible controller
-                  itself being critically misconfigured. \n Any transient errors that
-                  occur during the reconciliation of MachinePools can be added as
-                  events to the MachinePool object and/or logged in the controller's
-                  output."
+                description: |-
+                  FailureReason will be set in the event that there is a terminal problem
+                  reconciling the MachinePool and will contain a succinct value suitable
+                  for machine interpretation.
+
+
+                  This field should not be set for transitive errors that a controller
+                  faces that are expected to be fixed automatically over
+                  time (like service outages), but instead indicate that something is
+                  fundamentally wrong with the MachinePool's spec or the configuration of
+                  the controller, and that manual intervention is required. Examples
+                  of terminal errors would be invalid combinations of settings in the
+                  spec, values that are unsupported by the controller, or the
+                  responsible controller itself being critically misconfigured.
+
+
+                  Any transient errors that occur during the reconciliation of MachinePools
+                  can be added as events to the MachinePool object and/or logged in the
+                  controller's output.
                 type: string
               ready:
                 description: Ready is true when the provider resource is ready.
