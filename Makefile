@@ -430,7 +430,7 @@ release-metadata: $(RELEASE_DIR)
 
 .PHONY: release-templates
 release-templates: $(RELEASE_DIR)
-	cp templates/cluster-template* $(RELEASE_DIR)/
+	cp templates/${WORKLOAD_CLUSTER_TYPE}/cluster-template* $(RELEASE_DIR)/
 
 .PHONY: release-staging
 release-staging: ## Builds and push container images to the staging bucket.
@@ -451,7 +451,7 @@ release-notes: $(RELEASE_NOTES)
 ## --------------------------------------
 
 CLUSTER_NAME ?= test1
-WORKLOAD_CLUSTER_TYPE ?= default
+WORKLOAD_CLUSTER_TYPE ?= custom_network
 
 .PHONY: install-tools # populate hack/tools/bin
 install-tools: $(ENVSUBST) $(KUSTOMIZE) $(KUBECTL) $(GINKGO) $(KIND)
