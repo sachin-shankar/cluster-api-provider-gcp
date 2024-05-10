@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"path"
 
-	"sigs.k8s.io/cluster-api-provider-gcp/util/resourceurl"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/util/resourceurl"
 )
 
 const (

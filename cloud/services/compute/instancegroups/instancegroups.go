@@ -23,11 +23,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud/gcperrors"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud/scope"
 	"google.golang.org/api/compute/v1"
 	"k8s.io/utils/ptr"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud/gcperrors"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud/scope"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 )

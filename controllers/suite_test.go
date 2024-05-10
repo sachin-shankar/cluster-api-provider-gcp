@@ -20,12 +20,12 @@ import (
 	"path/filepath"
 	"testing"
 
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 	"k8s.io/klog/v2"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/envtest"

@@ -20,8 +20,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/newrelic-forks/cluster-api-provider-gcp/util/reconciler"
 	"github.com/onsi/gomega"
-	"sigs.k8s.io/cluster-api-provider-gcp/util/reconciler"
 )
 
 func TestDefaultedTimeout(t *testing.T) {

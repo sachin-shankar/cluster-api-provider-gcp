@@ -33,7 +33,7 @@ import (
 	"sigs.k8s.io/cluster-api/test/framework"
 	"sigs.k8s.io/cluster-api/test/framework/clusterctl"
 
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 )
 
 const (

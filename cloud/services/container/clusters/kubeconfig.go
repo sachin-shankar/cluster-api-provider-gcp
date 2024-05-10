@@ -24,6 +24,7 @@ import (
 	"cloud.google.com/go/container/apiv1/containerpb"
 	"cloud.google.com/go/iam/credentials/apiv1/credentialspb"
 	"github.com/go-logr/logr"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -31,7 +32,6 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/tools/clientcmd/api"
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
 	"sigs.k8s.io/cluster-api/util/kubeconfig"
 	"sigs.k8s.io/cluster-api/util/secret"
 )

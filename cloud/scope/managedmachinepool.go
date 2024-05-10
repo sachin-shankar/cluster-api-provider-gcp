@@ -21,18 +21,18 @@ import (
 	"fmt"
 	"strings"
 
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/util/location"
 	"k8s.io/utils/ptr"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud"
-	"sigs.k8s.io/cluster-api-provider-gcp/util/location"
 
 	"sigs.k8s.io/cluster-api/util/conditions"
 
 	compute "cloud.google.com/go/compute/apiv1"
 	container "cloud.google.com/go/container/apiv1"
 	"cloud.google.com/go/container/apiv1/containerpb"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 	"github.com/pkg/errors"
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
 	clusterv1exp "sigs.k8s.io/cluster-api/exp/api/v1beta1"
 	"sigs.k8s.io/cluster-api/util/patch"

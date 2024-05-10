@@ -20,10 +20,10 @@ import (
 	"context"
 
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud/meta"
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud/gcperrors"
 	"google.golang.org/api/compute/v1"
 	"k8s.io/utils/ptr"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud/gcperrors"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 

@@ -26,12 +26,12 @@ import (
 	credentials "cloud.google.com/go/iam/credentials/apiv1"
 	resourcemanager "cloud.google.com/go/resourcemanager/apiv3"
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud"
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
 	"github.com/pkg/errors"
 	"google.golang.org/api/compute/v1"
 	"google.golang.org/api/option"
 	"k8s.io/client-go/pkg/version"
 	"k8s.io/client-go/util/flowcontrol"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

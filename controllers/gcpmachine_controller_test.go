@@ -19,10 +19,10 @@ package controllers
 import (
 	"context"
 
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )

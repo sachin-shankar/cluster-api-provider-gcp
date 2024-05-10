@@ -26,7 +26,7 @@ import (
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/util/intstr"
 
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 	ctrl "sigs.k8s.io/controller-runtime"
 )
 

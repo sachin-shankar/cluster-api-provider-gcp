@@ -22,11 +22,11 @@ import (
 	"strconv"
 	"time"
 
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud"
 	"github.com/pkg/errors"
 	"google.golang.org/api/compute/v1"
 	"k8s.io/utils/ptr"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud"
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
 	"sigs.k8s.io/cluster-api/util/patch"
 	"sigs.k8s.io/controller-runtime/pkg/client"

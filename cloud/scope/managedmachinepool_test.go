@@ -2,12 +2,12 @@ package scope
 
 import (
 	"cloud.google.com/go/container/apiv1/containerpb"
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud"
-	"sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
 	clusterv1exp "sigs.k8s.io/cluster-api/exp/api/v1beta1"
 )
 

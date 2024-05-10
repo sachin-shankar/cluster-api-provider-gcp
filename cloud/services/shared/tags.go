@@ -22,8 +22,8 @@ import (
 
 	resourcemanager "cloud.google.com/go/resourcemanager/apiv3"
 	rmpb "cloud.google.com/go/resourcemanager/apiv3/resourcemanagerpb"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 

@@ -17,8 +17,8 @@ limitations under the License.
 package clusters
 
 import (
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud/scope"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud/scope"
 )
 
 // Service implements clusters reconciler.

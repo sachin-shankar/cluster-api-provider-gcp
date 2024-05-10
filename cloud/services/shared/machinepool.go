@@ -23,8 +23,8 @@ import (
 
 	clusterv1exp "sigs.k8s.io/cluster-api/exp/api/v1beta1"
 
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud"
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 )
 
 // ManagedMachinePoolPreflightCheck will perform checks against the machine pool before its created.

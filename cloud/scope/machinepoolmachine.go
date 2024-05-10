@@ -25,6 +25,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 	"github.com/pkg/errors"
 	"golang.org/x/mod/semver"
 	"google.golang.org/api/compute/v1"
@@ -33,8 +35,6 @@ import (
 	"k8s.io/client-go/kubernetes"
 	kubedrain "k8s.io/kubectl/pkg/drain"
 	"k8s.io/utils/ptr"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud"
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
 	"sigs.k8s.io/cluster-api/controllers/noderefutil"
 	"sigs.k8s.io/cluster-api/controllers/remote"

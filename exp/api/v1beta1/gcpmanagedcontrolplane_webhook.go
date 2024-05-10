@@ -25,9 +25,9 @@ import (
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/util/validation/field"
 
+	"github.com/newrelic-forks/cluster-api-provider-gcp/util/hash"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/runtime"
-	"sigs.k8s.io/cluster-api-provider-gcp/util/hash"
 	ctrl "sigs.k8s.io/controller-runtime"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"

@@ -1,4 +1,4 @@
-module sigs.k8s.io/cluster-api-provider-gcp
+module github.com/newrelic-forks/cluster-api-provider-gcp
 
 go 1.21
 

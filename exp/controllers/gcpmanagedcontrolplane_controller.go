@@ -23,13 +23,13 @@ import (
 
 	"sigs.k8s.io/cluster-api/util/annotations"
 
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud/scope"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud/services/container/clusters"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/util/reconciler"
 	"github.com/pkg/errors"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud/scope"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud/services/container/clusters"
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
-	"sigs.k8s.io/cluster-api-provider-gcp/util/reconciler"
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
 	"sigs.k8s.io/cluster-api/util"
 	"sigs.k8s.io/cluster-api/util/conditions"

@@ -19,8 +19,8 @@ package providerid_test
 import (
 	"testing"
 
+	"github.com/newrelic-forks/cluster-api-provider-gcp/cloud/providerid"
 	. "github.com/onsi/gomega"
-	"sigs.k8s.io/cluster-api-provider-gcp/cloud/providerid"
 )
 
 func TestProviderID_New(t *testing.T) {

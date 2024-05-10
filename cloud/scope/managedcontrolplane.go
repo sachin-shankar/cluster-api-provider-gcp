@@ -20,15 +20,15 @@ import (
 	"context"
 	"fmt"
 
-	"sigs.k8s.io/cluster-api-provider-gcp/util/location"
+	"github.com/newrelic-forks/cluster-api-provider-gcp/util/location"
 
 	"sigs.k8s.io/cluster-api/util/conditions"
 
 	container "cloud.google.com/go/container/apiv1"
 	credentials "cloud.google.com/go/iam/credentials/apiv1"
 	resourcemanager "cloud.google.com/go/resourcemanager/apiv3"
+	infrav1exp "github.com/newrelic-forks/cluster-api-provider-gcp/exp/api/v1beta1"
 	"github.com/pkg/errors"
-	infrav1exp "sigs.k8s.io/cluster-api-provider-gcp/exp/api/v1beta1"
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
 	clusterv1exp "sigs.k8s.io/cluster-api/exp/api/v1beta1"
 	"sigs.k8s.io/cluster-api/util/patch"

@@ -22,8 +22,8 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 
 	"github.com/GoogleCloudPlatform/k8s-cloud-provider/pkg/cloud"
+	infrav1 "github.com/newrelic-forks/cluster-api-provider-gcp/api/v1beta1"
 	corev1 "k8s.io/api/core/v1"
-	infrav1 "sigs.k8s.io/cluster-api-provider-gcp/api/v1beta1"
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1beta1"
 	capierrors "sigs.k8s.io/cluster-api/errors"
 )
