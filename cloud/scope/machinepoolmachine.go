@@ -22,6 +22,7 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"reflect"
 	"strings"
 	"time"
 
@@ -70,8 +71,15 @@ type (
 		MachinePool           *clusterv1exp.MachinePool
 		GCPMachinePool        *infrav1exp.GCPMachinePool
 		GCPMachinePoolMachine *infrav1exp.GCPMachinePoolMachine
+		MachinePoolScope      *MachinePoolScope
+		instance              *compute.Instance
 	}
 )
+
+// SetReady sets the GCPMachinePoolMachine Ready Status to true.
+func (m *MachinePoolMachineScope) SetMIGInstance(instance *compute.Instance) {
+	m.instance = instance
+}
 
 // PatchObject persists the machine pool configuration and status.
 func (m *MachinePoolMachineScope) PatchObject(ctx context.Context) error {
@@ -121,6 +129,17 @@ func NewMachinePoolMachineScope(params MachinePoolMachineScopeParams) (*MachineP
 		return nil, errors.New("gcp machine pool machine is required when creating a MachinePoolScope")
 	}
 
+	mpScope, err := NewMachinePoolScope(MachinePoolScopeParams{
+		Client:         params.Client,
+		MachinePool:    params.MachinePool,
+		GCPMachinePool: params.GCPMachinePool,
+		ClusterGetter:  params.ClusterGetter,
+	})
+
+	if err != nil {
+		return nil, errors.Wrap(err, "failed to build machine pool scope")
+	}
+
 	helper, err := patch.NewHelper(params.GCPMachinePoolMachine, params.Client)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to init patch helper for %s %s/%s", params.GCPMachinePoolMachine.GroupVersionKind(), params.GCPMachinePoolMachine.Namespace, params.GCPMachinePoolMachine.Name)
@@ -139,6 +158,7 @@ func NewMachinePoolMachineScope(params MachinePoolMachineScopeParams) (*MachineP
 		GCPMachinePoolMachine:      params.GCPMachinePoolMachine,
 		PatchHelper:                helper,
 		CapiMachinePoolPatchHelper: capiMachinePoolPatchHelper,
+		MachinePoolScope:           mpScope,
 	}, nil
 }
 
@@ -184,6 +204,16 @@ func (m *MachinePoolMachineScope) UpdateNodeStatus(ctx context.Context) (bool, e
 		}
 
 		m.GCPMachinePoolMachine.Status.Version = node.Status.NodeInfo.KubeletVersion
+
+		if m.instance != nil {
+			hasLatestModel, err := m.hasLatestModelApplied()
+			if err != nil {
+				return false, errors.Wrap(err, "failed to determine if the MIG instance has the latest model")
+			}
+
+			m.GCPMachinePoolMachine.Status.LatestModelApplied = hasLatestModel
+			m.GCPMachinePoolMachine.Status.ProvisioningState = infrav1exp.ProvisioningState(m.instance.Status)
+		}
 	}
 
 	return true, nil
@@ -455,6 +485,25 @@ func (m *MachinePoolMachineScope) drainNode(ctx context.Context, node *corev1.No
 
 	log.Info("Node drained successfully", "node", node.Name)
 	return nil
+}
+
+func (m *MachinePoolMachineScope) hasLatestModelApplied() (bool, error) {
+	if m.instance == nil {
+		return false, errors.New("instance must not be nil")
+	}
+
+	image, err := m.MachinePoolScope.GetInstanceImage()
+	if err != nil {
+		return false, errors.Wrap(err, "unable to build vm image information from MachinePoolScope")
+	}
+
+	// this should never happen as GetVMImage should only return nil when err != nil. Just in case.
+	if image == nil {
+		return false, errors.New("machinepoolscope image must not be nil")
+	}
+
+	// if the images match, then the VM is of the same model
+	return reflect.DeepEqual(m.instance.SourceMachineImage, *image), nil
 }
 
 type writerInfo struct {

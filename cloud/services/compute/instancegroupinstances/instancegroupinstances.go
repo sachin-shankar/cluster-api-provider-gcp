@@ -62,11 +62,8 @@ func (s *Service) Reconcile(ctx context.Context) (ctrl.Result, error) {
 		return ctrl.Result{}, err
 	}
 
-	// Fetch the instances disk.
-	disk, err := s.GetDisk(ctx, s.scope.Project(), s.scope.Zone(), s.scope.Name())
-	if err != nil {
-		return ctrl.Result{}, err
-	}
+	// Set the instance in scope
+	s.scope.SetMIGInstance(instance)
 
 	// Update the GCPMachinePoolMachine status.
 	s.scope.GCPMachinePoolMachine.Status.InstanceName = instance.Name
@@ -80,15 +77,7 @@ func (s *Service) Reconcile(ctx context.Context) (ctrl.Result, error) {
 		return ctrl.Result{RequeueAfter: 30 * time.Second}, nil
 	}
 
-	// Update hasLatestModelApplied status.
-	latestModel, err := s.scope.HasLatestModelApplied(ctx, disk)
-	if err != nil {
-		log.Error(err, "Failed to check if the latest model is applied")
-		return ctrl.Result{}, err
-	}
-
 	// Update the GCPMachinePoolMachine status.
-	s.scope.GCPMachinePoolMachine.Status.LatestModelApplied = latestModel
 	s.scope.SetReady()
 
 	return ctrl.Result{}, nil

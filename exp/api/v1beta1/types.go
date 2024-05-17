@@ -41,17 +41,11 @@ type ProvisioningState string
 
 const (
 	// Creating ...
-	Creating ProvisioningState = "Creating"
+	Creating ProvisioningState = "PROVISIONING"
 	// Deleting ...
-	Deleting ProvisioningState = "Deleting"
-	// Failed ...
-	Failed ProvisioningState = "Failed"
+	Deleting ProvisioningState = "DEPROVISIONING"
 	// Succeeded ...
-	Succeeded ProvisioningState = "Succeeded"
-	// Updating ...
-	Updating ProvisioningState = "Updating"
-	// Deleted represents a deleted resource.
-	Deleted ProvisioningState = "Deleted"
+	Succeeded ProvisioningState = "STAGING"
 )
 
 // Taints is an array of Taints.
